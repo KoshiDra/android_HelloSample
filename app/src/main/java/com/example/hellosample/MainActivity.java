@@ -16,13 +16,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 表示ボタンオブジェクト取得
-        Button bt = findViewById(R.id.btClick);
+        Button btClick = findViewById(R.id.btClick);
 
         // リスナクラスのインスタンス作成
         HelloListener hl = new HelloListener();
 
         // 表示ボタンにリスナ設定
-        bt.setOnClickListener(hl);
+        btClick.setOnClickListener(hl);
+
+        findViewById(R.id.btClear).setOnClickListener(hl);
     }
 
     private class HelloListener implements View.OnClickListener {
@@ -34,11 +36,20 @@ public class MainActivity extends AppCompatActivity {
             // 表示欄のオブジェクト取得
             TextView tv = findViewById(R.id.tvOutput);
 
-            // 入力値取得
-            String inputStr = et.getText().toString();
+            final int id = v.getId();
+            switch (id){
+                case R.id.btClick:
+                    // 入力値取得
+                    String inputStr = et.getText().toString();
 
-            // 入力値を表示欄に設定
-            tv.setText(String.format("%sさん。こんにちは！", inputStr));
+                    // 入力値を表示欄に設定
+                    tv.setText(String.format("%sさん。こんにちは！", inputStr));
+                    break;
+                case R.id.btClear:
+                    et.setText("");
+                    tv.setText("");
+                    break;
+            }
         }
     }
 }
